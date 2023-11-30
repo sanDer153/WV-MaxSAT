@@ -1,1 +1,1 @@
-# analyse-SAT
+# MaxSAT
