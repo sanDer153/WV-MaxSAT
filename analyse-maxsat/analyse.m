@@ -1,6 +1,6 @@
 %% Experiment 1: 3D plot van uitvoeringstijd ifv orde & dichtheid
 
-data = readmatrix("../results/3d-graph-results.csv");
+data = readmatrix("../resultsVSC/3d-graph-results.csv");
 order = data(:, 1);
 density = data(:, 2);
 time = data(:, 3);
@@ -29,7 +29,7 @@ zlabel("Mediaan uitvoeringstijd (in ns)");
 %   - Random 3-SAT: The Plot Thickens p. 249 (3. Experimental setup)
 
 clc; clear;
-data = readmatrix("../results/2d-graph-results-5.csv");
+data = readmatrix("../resultsVSC/2d-graph-results-4.26.csv");
 order = data(:, 1);
 time = data(:, 2);
 
