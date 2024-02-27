@@ -29,7 +29,7 @@ zlabel("Mediaan uitvoeringstijd (in ns)");
 %   - Random 3-SAT: The Plot Thickens p. 249 (3. Experimental setup)
 
 clc; clear;
-data = readmatrix("../resultsVSC2/2d-graph-results-3.8.csv");
+data = readmatrix("../resultsVSC/2d-graph-results-3.4.csv");
 order = data(:, 1);
 time = data(:, 2);
 
