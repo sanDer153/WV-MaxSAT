@@ -24,7 +24,7 @@ def experiment2():
         for order in range(max(3, step), max_order+1, step):
             clauses = round(density * order)
             results = []
-            for _ in range(200):
+            for _ in range(600):
                 with RC2(generate_problem(order, clauses)) as rc2:
                     begin = time.perf_counter_ns()
                     rc2.compute()
