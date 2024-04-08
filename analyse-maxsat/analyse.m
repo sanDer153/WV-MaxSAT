@@ -1,6 +1,6 @@
 %% Experiment 1: 3D plot van uitvoeringstijd ifv orde & dichtheid
 
-data = readmatrix("../resultsVSC-singlecore-1/3d-graph-results.csv");
+data = readmatrix("../resultsFM/3d-graph-results.csv");
 order = data(:, 1);
 density = data(:, 2);
 time = data(:, 3);
@@ -14,6 +14,7 @@ yv = linspace(min(y), max(y), length(unique(y)));
 [X,Y] = meshgrid(xv, yv);
 Z = griddata(x,y,z,X,Y);
 
+figure();
 s = surf(X, Y, Z);
 set(gca,'zscale','log');
 set(gca,'ColorScale','log');
