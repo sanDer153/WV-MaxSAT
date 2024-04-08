@@ -18,9 +18,11 @@ figure();
 s = surf(X, Y, Z);
 set(gca,'zscale','log');
 set(gca,'ColorScale','log');
-title("Uitvoeringstijd van MaxSAT solver");
-xlabel("Dichtheid");
-ylabel("Orde");
+set(gca, 'ZTick', [1e4, 1e6, 1e8, 1e10]);
+% fontsize(gca, 10, "points");
+title("Uitvoeringstijd van RC2", "FontSize", 16);
+xlabel("Dichtheid", "FontSize", 16);
+ylabel("Orde", "FontSize", 16);
 zlabel("Mediaan uitvoeringstijd (in ns)");
 
 %% Experiment 2: tijdscomplexiteit ifv orde
@@ -30,13 +32,16 @@ zlabel("Mediaan uitvoeringstijd (in ns)");
 %   - Random 3-SAT: The Plot Thickens p. 249 (3. Experimental setup)
 
 clc; clear;
-data = readmatrix("../resultsVSC-singlecore-3/2d-graph-results-3.8.csv");
+
+d = 4.26;
+data = readmatrix("../resultsVSC-singlecore-3/2d-graph-results-" + d + ".csv");
 order = data(:, 1);
 time = data(:, 2);
 
 % 1. Check log-linear plot
 %      - logarithmic -> it is polynomial
 %      - linear      -> it is exponential
+figure(1);
 subplot(2,2,1);
 P1 = polyfit(order,log(time),1);
 scatter(order,log(time));
@@ -78,3 +83,26 @@ plot(order,exponential(order));
 title("Exponential fit");
 fprintf("EXPONENTIAL FIT\n");
 fprintf("\t\t R^2 = %f\n", R(1,2));
+
+% Separate polynomial fit (voor poster)
+figure(2);
+scatter(order,time);
+hold on;
+plot(order,polyval(P3,order));
+fontsize(gca, 16, "points");
+title("Uitvoeringstijd ifv orde", "FontSize", 19);
+xlabel("Orde n", "FontSize", 19);
+ylabel("Mediaan uitvoeringstijd (in ns)");
+legend("Uitvoeringstijd", "Polynomial fit : O(n^" + degree + ")", "Location", "northwest");
+
+% Separate exponential fit (voor poster)
+figure(3);
+scatter(order,time);
+hold on;
+plot(order,exponential(order));
+fontsize(gca, 16, "points");
+title("Uitvoeringstijd ifv orde", "FontSize", 19);
+xlabel("Orde n", "FontSize", 19);
+ylabel("Mediaan uitvoeringstijd (in ns)");
+legend("Uitvoeringstijd", "Exponential fit", "Location", "northwest");
+
