@@ -33,7 +33,7 @@ zlabel("Mediaan uitvoeringstijd (in ms)");
 
 clc; clear;
 
-d = 3;
+d = 3.6;
 data = readmatrix("../results/2d-graph-results-" + d + ".csv");
 order = data(:, 1);
 time = data(:, 2)/10^6;
@@ -106,6 +106,14 @@ xlabel("Orde n", "FontSize", 19);
 ylabel("Mediaan uitvoeringstijd (in ms)");
 legend("Uitvoeringstijd", "Exponential fit", "Location", "northwest");
 
+% Separate log-log fit (voor paper)
+figure(4);
+P2 = polyfit(log(order),log(time),1);
+scatter(order,log(time));
+hold on;
+plot(order,polyval(P2,order));
+title("Log-log");
+
 
 %% Plot with multiple results combined log-lin
 
@@ -124,7 +132,7 @@ slope1 = Q1(1);
 intercept1 = Q1(2);
 exponential1 = @(x) exp(x .* slope1) .* exp(intercept1);
 
-d3 = 3.8;
+d3 = 3.7;
 data3 = readmatrix("../results/2d-graph-results-" + d3 + ".csv");
 order3 = data3(:, 1);
 time3 = data3(:, 2)/10^6;
@@ -157,9 +165,10 @@ scat4 = scatter(order4, time4);
 fit4 = plot(order4,exponential3(order4));
 scat4.SeriesIndex = fit4.SeriesIndex;
 
-fontsize(gca, 12, "points");
-xlabel("Orde n");
+fontsize(gca, 14, "points");
+title("Uitvoeringstijd in functie van de orde", "FontSize", 16);
+xlabel("Orde n", "FontSize", 16);
 ylabel("Mediaan uitvoeringstijd (in ms)");
 set(gca,'yscale','log');
-legend([scat1 scat2 scat3 scat4],{'Dichtheid 3','Dichtheid 3.6','Dichtheid 3.8','Dichtheid 4.26'}, "Location", "southeast");
+legend([scat1 scat2 scat3 scat4],{'Dichtheid 3','Dichtheid 3.6','Dichtheid 3.7','Dichtheid 4.26'}, "Location", "southeast");
 
