@@ -18,13 +18,13 @@ def generate_problem(n_vars, n_clauses):
 
 def experiment2():
     # (density, max_order, step)
-    test_scenarios = [(5, 100, 2)]
+    test_scenarios = [(4, 200, 5)]
     for (density, max_order, step) in test_scenarios:
         data = {"order": [], "time": []}
         for order in range(max(3, step), max_order+1, step):
             clauses = round(density * order)
             results = []
-            for _ in range(100):
+            for _ in range(2000):
                 with RC2(generate_problem(order, clauses)) as rc2:
                     begin = time.perf_counter_ns()
                     rc2.compute()

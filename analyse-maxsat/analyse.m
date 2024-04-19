@@ -33,7 +33,7 @@ zlabel("Mediaan uitvoeringstijd (in ms)");
 
 clc; clear;
 
-d = 3;
+d = 4;
 data = readmatrix("../results/2d-graph-results-" + d + ".csv");
 order = data(:, 1);
 time = data(:, 2)/10^6;
@@ -124,7 +124,7 @@ slope1 = Q1(1);
 intercept1 = Q1(2);
 exponential1 = @(x) exp(x .* slope1) .* exp(intercept1);
 
-d3 = 3.8;
+d3 = 3.8 ;
 data3 = readmatrix("../results/2d-graph-results-" + d3 + ".csv");
 order3 = data3(:, 1);
 time3 = data3(:, 2)/10^6;
