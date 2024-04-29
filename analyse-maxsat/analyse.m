@@ -20,9 +20,16 @@ set(gca,'zscale','log');
 set(gca,'ColorScale','log');
 set(gca, 'ZTick', [1e-2, 1e0, 1e2, 1e4]);
 % fontsize(gca, 10, "points");
-title("Uitvoeringstijd van FM", "FontSize", 16);
-xlabel("Dichtheid", "FontSize", 16);
-ylabel("Orde", "FontSize", 16);
+
+% ppt titles
+% title("Uitvoeringstijd van FM", "FontSize", 16);
+% xlabel("Dichtheid", "FontSize", 16);
+% ylabel("Orde", "FontSize", 16);
+
+% paper titles
+fontsize(gca, 12, "points");
+xlabel("Dichtheid");
+ylabel("Orde");
 zlabel("Mediaan uitvoeringstijd (in ms)");
 
 %% Experiment 2: tijdscomplexiteit ifv orde
@@ -33,7 +40,7 @@ zlabel("Mediaan uitvoeringstijd (in ms)");
 
 clc; clear;
 
-d = 4;
+d = 4.26;
 data = readmatrix("../results/2d-graph-results-" + d + ".csv");
 order = data(:, 1);
 time = data(:, 2)/10^6;
@@ -90,9 +97,9 @@ scatter(order,time);
 hold on;
 plot(order,polyval(P3,order));
 fontsize(gca, 16, "points");
-title("Uitvoeringstijd ifv orde", "FontSize", 19);
-xlabel("Orde n", "FontSize", 19);
-ylabel("Mediaan uitvoeringstijd (in ms)");
+title("Uitvoeringstijd ifv orde", "FontSize", 16);
+xlabel("Orde n", "FontSize", 16);
+ylabel("Mediaan uitvoeringstijd (in ms)", "FontSize", 16);
 legend("Uitvoeringstijd", "Polynomial fit : O(n^" + degree + ")", "Location", "northwest");
 
 % Separate exponential fit (voor poster)
@@ -101,9 +108,9 @@ scatter(order,time);
 hold on;
 plot(order,exponential(order));
 fontsize(gca, 16, "points");
-title("Uitvoeringstijd ifv orde", "FontSize", 19);
-xlabel("Orde n", "FontSize", 19);
-ylabel("Mediaan uitvoeringstijd (in ms)");
+title("Uitvoeringstijd ifv orde", "FontSize", 16);
+xlabel("Orde n", "FontSize", 16);
+ylabel("Mediaan uitvoeringstijd (in ms)", "FontSize", 16);
 legend("Uitvoeringstijd", "Exponential fit", "Location", "northwest");
 
 
@@ -133,7 +140,7 @@ slope2 = Q2(1);
 intercept2 = Q2(2);
 exponential2 = @(x) exp(x .* slope2) .* exp(intercept2);
 
-d4 = 4.26;
+d4 = 4.1;
 data4 = readmatrix("../results/2d-graph-results-" + d4 + ".csv");
 order4 = data4(:, 1);
 time4 = data4(:, 2)/10^6;
@@ -141,6 +148,15 @@ Q3 = polyfit(order4,log(time4),1);
 slope3 = Q3(1);
 intercept3 = Q3(2);
 exponential3 = @(x) exp(x .* slope3) .* exp(intercept3);
+
+d5 = 4.26;
+data5 = readmatrix("../results/2d-graph-results-" + d5 + ".csv");
+order5 = data5(:, 1);
+time5 = data5(:, 2)/10^6;
+Q4 = polyfit(order5,log(time5),1);
+slope4 = Q4(1);
+intercept4 = Q4(2);
+exponential4 = @(x) exp(x .* slope4) .* exp(intercept4);
 
 figure(1);
 hold on;
@@ -156,10 +172,19 @@ scat3.SeriesIndex = fit3.SeriesIndex;
 scat4 = scatter(order4, time4);
 fit4 = plot(order4,exponential3(order4));
 scat4.SeriesIndex = fit4.SeriesIndex;
+scat5 = scatter(order5, time5);
+fit5 = plot(order5,exponential4(order5));
+scat5.SeriesIndex = fit5.SeriesIndex;
 
-fontsize(gca, 12, "points");
-xlabel("Orde n");
-ylabel("Mediaan uitvoeringstijd (in ms)");
+% ppt titles
+title("Uitvoeringstijd in functie van orde", "FontSize", 16);
+xlabel("Orde n", "FontSize", 16);
+ylabel("Mediaan uitvoeringstijd (in ms)", "FontSize", 16);
+
+% paper titles
+% fontsize(gca, 12, "points");
+% xlabel("Orde n");
+% ylabel("Mediaan uitvoeringstijd (in ms)");
 set(gca,'yscale','log');
-legend([scat1 scat2 scat3 scat4],{'Dichtheid 3','Dichtheid 3.6','Dichtheid 3.8','Dichtheid 4.26'}, "Location", "southeast");
+legend([scat1 scat2 scat3 scat4 scat5],{'Dichtheid 3','Dichtheid 3.6','Dichtheid 3.8','Dichtheid 4.1','Dichtheid 4.26'}, "Location", "southeast", "FontSize", 12);
 
